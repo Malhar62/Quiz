@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   Alert
 } from "react-native";
-
-export default function Queue({ ind, Moveto }) {
+import { connect } from "react-redux";
+function Queue({ ind, Moveto, current, queue }) {
   var payments = [];
   for (let i = 1; i < 8; i++) {
     payments.push(
@@ -25,26 +25,45 @@ export default function Queue({ ind, Moveto }) {
         <FlatList
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          data={payments}
+          data={queue}
           renderItem={({ item, index }) => (
             <View
               style={{
-                marginLeft: 5,
-                width: 30,
-                height: 30,
-                borderRadius: 30 / 2,
-                borderWidth: 1,
-                backgroundColor: ind == index ? "orange" : "#fff"
+                width: 35,
+                marginLeft: 10,
+                height: 35,
+                borderRadius: 35 / 2,
+                backgroundColor: ind === index ? "#e0365e" : "#fff",
+                borderWidth: ind === index ? 2 : 0
               }}
             >
-              <TouchableOpacity
-                onPress={() => {
-                  Moveto(index);
-                  console.log(ind+'=='+index)
+              <View
+                style={{
+                  marginLeft: 3,
+                  marginTop: 3,
+                  width: 25,
+                  height: 25,
+                  borderRadius: 25 / 2,
+                  borderWidth: 1,
+                  backgroundColor: item.color
                 }}
               >
-                <Text style={{ marginLeft: 8, fontSize: 20 }}>{index + 1}</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    Moveto(index);
+                  }}
+                >
+                  <Text
+                    style={{
+                      marginLeft: 7,
+                      fontSize: 15,
+                      color: item.color === "green" ? "#fff" : "black"
+                    }}
+                  >
+                    {item.id}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           )}
         />
@@ -52,3 +71,12 @@ export default function Queue({ ind, Moveto }) {
     </View>
   );
 }
+const mapStateToProps = (state) => ({
+  list: state.quiz.list,
+  count: state.quiz.count,
+  finalR: state.quiz.finalR,
+  queue: state.quiz.queue,
+  current: state.quiz.current
+});
+const mapDispatchToProps = (dispatch) => ({});
+export default connect(mapStateToProps, mapDispatchToProps)(Queue);

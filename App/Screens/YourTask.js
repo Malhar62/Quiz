@@ -39,6 +39,7 @@ function YourTask({
   const [ind, setInd] = useState(0);
   const [selected, setSelected] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [flag, setFlag] = useState(false);
   function calce(obj) {
     setSelected(obj.number);
     let obj1 = {
@@ -64,7 +65,9 @@ function YourTask({
       setModalVisible(false);
     }
   }
+
   function Moveto(index) {
+    setSelected("");
     setResult(index);
     setInd(index);
   }
@@ -72,7 +75,7 @@ function YourTask({
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={{ alignSelf: "center" }}>
         {result < 7 && (
-          <View style={{ height: 300 }}>
+          <View style={{ height: 250 }}>
             <Custom result={result} list={list} calce={(obj) => calce(obj)} />
           </View>
         )}
@@ -95,39 +98,48 @@ function YourTask({
                 setInd(result - 1);
                 console.log(ind);
                 setResult(result - 1);
-                back(result);
               }
             }}
           />
         )}
         {result < 7 && (
           <Button
-          color='purple'
             title="clear choice"
             onPress={() => {
+              setSelected("");
               clear(result);
-            }}
-          />
-        )}
-        {result === 7 && !modalVisible && (
-          <Button
-            title="submit"
-            onPress={() => {
-              setModalVisible(true);
-              submit();
             }}
           />
         )}
         {result < 7 && (
           <Button
-            title="next >"
+            title="save"
+            onPress={() => {
+              let open = { result, op: list[result], selected };
+              next(open);
+            }}
+          />
+        )}
+        {result === 6 && !modalVisible && (
+          <Button
+            title="submit"
+            color="orange"
+            onPress={() => {
+              setModalVisible(true);
+              setResult(result + 1);
+              submit();
+              setFlag(false);
+            }}
+          />
+        )}
+        {result < 6 && (
+          <Button
+            title=" next >"
             color="navy"
             onPress={() => {
               setInd(result + 1);
               if (result < list.length) {
                 setResult(result + 1);
-                let open = { result, op: list[result], selected };
-                next(open);
                 setSelected("");
               }
             }}

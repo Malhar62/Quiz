@@ -12,10 +12,7 @@ import {
     type: NEXT,
     obj
   });
-  export const back = (num) => ({
-    type: BACK,
-    num
-  });
+  
   export const edit = (obj) => ({
     type: EDIT,
     obj
