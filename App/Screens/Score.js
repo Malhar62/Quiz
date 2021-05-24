@@ -29,7 +29,7 @@ function Score({ finalR, scoreList }) {
         }}
       >
         <Text style={{ fontSize: 30, marginTop: 0 }}>
-          YOUR SCORE : {finalR}
+          YOUR CURRENT SCORE : {finalR}
         </Text>
       </Animated.View>
       <Text style={{ marginTop: 20, fontWeight: "bold" }}>PREVIOUS SCORES</Text>
