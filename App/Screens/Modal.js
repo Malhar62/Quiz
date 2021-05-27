@@ -1,14 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Button,
-  FlatList,
-  TouchableOpacity,
-  Alert,
-  Modal,
-  Pressable
-} from "react-native";
+import React from "react";
+import { View, Text, Modal, Pressable } from "react-native";
 
 export default function Memo({ modalVisible, ticked, comp }) {
   return (
@@ -24,11 +15,12 @@ export default function Memo({ modalVisible, ticked, comp }) {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            marginTop: 450,
-            marginHorizontal: 10
+            marginTop: 550,
+            marginHorizontal: 10,
+            marginBottom:20
           }}
         >
-          <Text style={{ fontSize: 30, color: "#fff" }}>
+          <Text style={{ fontSize: 20, color: "#fff" }}>
             QUESTIONS DONE : {ticked}
           </Text>
           <View
@@ -48,7 +40,7 @@ export default function Memo({ modalVisible, ticked, comp }) {
                   fontSize: 20,
                   color: "#fff",
                   textDecorationLine: "underline",
-                  marginRight: 60,
+                  marginRight: 65,
                   fontStyle: "italic"
                 }}
               >
@@ -64,7 +56,7 @@ export default function Memo({ modalVisible, ticked, comp }) {
                 style={{
                   fontSize: 20,
                   color: "#fff",
-                  marginLeft: 60,
+                  marginLeft: 50,
                   textDecorationLine: "underline",
                   fontStyle: "italic"
                 }}

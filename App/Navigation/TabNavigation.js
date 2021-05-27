@@ -4,6 +4,7 @@ import YourTask from "../Screens/YourTask";
 import { createStackNavigator } from "@react-navigation/stack";
 import Score from "../Screens/Score";
 import Subject from "../Screens/Subject";
+import Solution from "../Screens/Solution";
 const Stack = createStackNavigator();
 
 export default function TabNavigation() {
@@ -45,6 +46,22 @@ export default function TabNavigation() {
           component={Score}
           options={{
             title: ": RESULTS :",
+            headerStyle: {
+              backgroundColor: "#f4511e"
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              alignSelf: "center",
+              marginRight: 60
+            }
+          }}
+        />
+        <Stack.Screen
+          name="solution"
+          component={Solution}
+          options={{
+            title: " SOLUTION ",
             headerStyle: {
               backgroundColor: "#f4511e"
             },

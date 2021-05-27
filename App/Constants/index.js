@@ -5,3 +5,5 @@ export const EDIT = "EDIT";
 export const SUBMIT = "SUBMIT";
 export const DONE = "DONE";
 export const CLEAR = "CLEAR";
+export const SAVE="SAVE";
+export const CHANGE="CHANGE"

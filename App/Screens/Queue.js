@@ -29,10 +29,10 @@ function Queue({ ind, Moveto, current, queue }) {
           renderItem={({ item, index }) => (
             <View
               style={{
-                width: 35,
+                width: 40,
                 marginLeft: 10,
-                height: 35,
-                borderRadius: 35 / 2,
+                height: 40,
+                borderRadius: 40 / 2,
                 backgroundColor: ind === index ? "#e0365e" : "#fff",
                 borderWidth: ind === index ? 2 : 0
               }}
@@ -41,9 +41,9 @@ function Queue({ ind, Moveto, current, queue }) {
                 style={{
                   marginLeft: 3,
                   marginTop: 3,
-                  width: 25,
-                  height: 25,
-                  borderRadius: 25 / 2,
+                  width: 30,
+                  height: 30,
+                  borderRadius: 30 / 2,
                   borderWidth: 1,
                   backgroundColor: item.color
                 }}
@@ -55,8 +55,8 @@ function Queue({ ind, Moveto, current, queue }) {
                 >
                   <Text
                     style={{
-                      marginLeft: 7,
-                      fontSize: 15,
+                      marginLeft: 8,
+                      fontSize: 20,
                       color: item.color === "green" ? "#fff" : "black"
                     }}
                   >

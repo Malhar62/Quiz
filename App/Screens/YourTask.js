@@ -1,14 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Button,
-  FlatList,
-  TouchableOpacity,
-  Alert,
-  Modal,
-  Pressable
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, Button } from "react-native";
 import Queue from "./Queue";
 import { connect } from "react-redux";
 import Custom from "./Custom";
@@ -19,7 +10,9 @@ import {
   edit,
   submit,
   showResult,
-  clear
+  clear,
+  save,
+  change
 } from "../Redux/Actions/index";
 function YourTask({
   navigation,
@@ -27,13 +20,15 @@ function YourTask({
   count,
   edit,
   add,
+  saved,
+  save,
   next,
   showResult,
   back,
   ticked,
   clear,
   finalR,
-  submit
+  submit,change
 }) {
   const [result, setResult] = useState(0);
   const [ind, setInd] = useState(0);
@@ -63,10 +58,12 @@ function YourTask({
       navigation.replace("score");
     } else {
       setModalVisible(false);
+      setResult(result-1)
     }
   }
 
   function Moveto(index) {
+    change(result)
     setSelected("");
     setResult(index);
     setInd(index);
@@ -94,10 +91,12 @@ function YourTask({
             title="< back"
             color="green"
             onPress={() => {
-              if (result > 0) {
+              if (result > 0 && result<7) {
                 setInd(result - 1);
+                change(result)
                 console.log(ind);
                 setResult(result - 1);
+                setSelected('')
               }
             }}
           />
@@ -116,14 +115,14 @@ function YourTask({
             title="save"
             onPress={() => {
               let open = { result, op: list[result], selected };
-              next(open);
+              save(open);
             }}
           />
         )}
         {result === 6 && !modalVisible && (
           <Button
             title="submit"
-            color="orange"
+            color="purple"
             onPress={() => {
               setModalVisible(true);
               setResult(result + 1);
@@ -139,10 +138,12 @@ function YourTask({
             onPress={() => {
               setInd(result + 1);
               if (result < list.length) {
+                change(result)
                 setResult(result + 1);
                 setSelected("");
               }
-            }}
+              }
+            }
           />
         )}
       </View>
@@ -162,14 +163,16 @@ const mapStateToProps = (state) => ({
   list: state.quiz.list,
   count: state.quiz.count,
   finalR: state.quiz.finalR,
-  ticked: state.quiz.ticked
+  ticked: state.quiz.ticked,
+  saved:state.quiz.saved
 });
 const mapDispatchToProps = (dispatch) => ({
-  next: (text) => dispatch(next(text)),
+  save: (text) => dispatch(save(text)),
   back: (text) => dispatch(back(text)),
   edit: (text) => dispatch(edit(text)),
   submit: () => dispatch(submit()),
   showResult: () => dispatch(showResult()),
-  clear: (num) => dispatch(clear(num))
+  clear: (num) => dispatch(clear(num)),
+  change:(num)=>dispatch(change(num))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(YourTask);

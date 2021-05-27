@@ -1,13 +1,20 @@
 import React, { useEffect, useRef } from "react";
-import { View, Text, Animated, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  Animated,
+  FlatList,
+  Button,
+  TouchableOpacity
+} from "react-native";
 import { connect } from "react-redux";
-function Score({ finalR, scoreList }) {
+function Score({ finalR, scoreList, navigation }) {
   const longines = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     Animated.timing(longines, {
       toValue: 1,
       duration: 2000,
-      useNativeDriver: true
+      useNativeDriver:false
     }).start();
   }, []);
   return (
@@ -25,11 +32,12 @@ function Score({ finalR, scoreList }) {
             inputRange: [0, 1],
             outputRange: [0, 1],
             extrapolate: "clamp",
+            backgroundColor: "cyan"
           })
         }}
       >
         <Text style={{ fontSize: 30, marginTop: 0 }}>
-          YOUR CURRENT SCORE : {finalR}
+          YOUR SCORE : {finalR}
         </Text>
       </Animated.View>
       <Text style={{ marginTop: 20, fontWeight: "bold" }}>PREVIOUS SCORES</Text>
@@ -79,6 +87,34 @@ function Score({ finalR, scoreList }) {
                       {item.name === "Social" ? "Social Science" : item.name}
                     </Text>
                   </View>
+                  <View
+                    style={{
+                      width: 70,
+                      marginLeft: 10,
+                      height: 40,
+                      backgroundColor: "maroon"
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate("solution", {
+                          user: item.solve,
+                          name: item.original,
+                          mark: item.marks
+                        })
+                      }
+                    >
+                      <Text
+                        style={{
+                          color: "#fff",
+                          alignSelf: "center",
+                          marginTop: 10
+                        }}
+                      >
+                        solution
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                   {item.marks === 7 && (
                     <View>
                       <Text style={{ fontSize: 30, marginLeft: 5 }}>🥳</Text>
@@ -86,7 +122,7 @@ function Score({ finalR, scoreList }) {
                   )}
                 </View>
               )}
-              keyExtractor={(item,index)=>index.toString()}
+              keyExtractor={(item, index) => index.toString()}
             />
           </View>
         </View>
@@ -96,8 +132,6 @@ function Score({ finalR, scoreList }) {
 }
 
 const mapStateToProps = (state) => ({
-  list: state.quiz.list,
-  count: state.quiz.count,
   finalR: state.quiz.finalR,
   scoreList: state.quiz.scoreList
 });
